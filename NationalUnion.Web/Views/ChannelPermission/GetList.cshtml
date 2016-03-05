@@ -1,0 +1,230 @@
+﻿@using NationalUnion.Application.Commons
+@using NationalUnion.Web.HtmlHelpers
+@using NationalUnion.Domain.Mapping
+
+@{
+    ViewBag.Title = "Set Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //var permis = (List<GetPermissionCode>)ViewBag.Permis ?? new List<GetPermissionCode>();
+}
+
+@*<div class="mvctool">
+    @Html.ToolButton("btnSave", "icon-save", "保存", permis, "Save", true)
+</div>*@
+
+<div class="mvctool">
+    @Html.ToolButton("btnSave", "icon-save", "保存", true)
+</div>
+
+<table style="width: 100%">
+    <tbody>
+        <tr>
+            <td style="width: 500px; padding-right: 3px; vertical-align: top">
+                <table id="roleList"></table>
+            </td>
+            <td style="width: 300px; padding-right: 3px; vertical-align: top">
+                <table id="moudleList"></table>
+            </td>
+            <td>
+                <table id="operateList"></table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        // 选择的模块ID，选中的角色ID，选中的模块名称，角色名称
+        var curMoudleId, curRoleId, curMoudleName, curRoleName, curSystemId, curSystemName;
+        curRoleName = "?";
+        curMoudleName = "?";
+
+        $('#roleList').datagrid({
+            url: '@Url.Action("GetRoleList")',
+            width: 500,
+            methord: 'post',
+            height: $(window).height() - 40,
+            fitColumns: true,
+            sortName: 'CreateTime',
+            sortOrder: 'desc',
+            idField: 'RoleId',
+            pageSize: 15,
+            pageList: [15, 20, 30, 40, 50],
+            pagination: true,
+            striped: true,
+            singleSelect: true,
+            rownumbers: true,
+            title: '角色列表',
+            columns: [[
+                { field: 'RoleId', title: '角色编号', width: 80, hidden: true },
+                { field: 'Name', title: '角色', width: 80, sortable: true },
+                { field: 'Description', title: '说明', width: 80, sortable: true },
+                { field: 'CreateTime', title: '创建时间', width: 80, sortable: true },
+                { field: 'CreatePerson', title: '创建人', width: 80, sortable: true, hidden: true }
+            ]],
+            onClickRow: function (index, data) {
+                var row = $('#roleList').datagrid('getSelected');
+                if (row != null) {
+                    curRoleName = row.Name;
+                    curRoleId = row.RoleId;
+                    $('#operateList').datagrid({ url: "/ChannelPermission/GetPermissionByRoleAndMoudle?roleId=" + curRoleId + "&moudleId=" + curMoudleId + "" });
+                    $('#operateList').datagrid({ 'title': "角色组: " + curRoleName + " >> 模块：" + curMoudleName });
+                }
+            }
+        });
+
+        //debugger;
+
+        $('#moudleList').treegrid({
+            //url: '@Url.Action("GetMoudleList")',
+            url: '/ChannelPermission/GetMoudleList',
+            methord: 'post',
+            width: 300,
+            height: $(window).height() - 40,
+            idField: 'MoudleId',
+            treeField: 'Name',
+            animate: true,
+            pagination: false,
+            striped: true,
+            fitColumns: true,
+            singleSelect: true,
+            collapsible: false,
+            nowrap: true,
+            title: '模块列表',
+            columns: [
+                [
+                    { field: 'MoudleId', title: '模块编号', width: 120, hidden: true },
+                    { field: 'Name', title: '名称', width: 220, sortable: true },
+                    { field: 'EnglishName', title: '别名', width: 80, sortable: true, hidden: true },
+                    { field: 'ParentId', title: '所属模块', width: 80, sortable: true, hidden: true },
+                    { field: 'Url', title: '链接', width: 80, sortable: true, hidden: true },
+                    { field: 'Iconic', title: '图标', width: 80, sortable: true, hidden: true },
+                    { field: 'Sort', title: '排序号', width: 80, sortable: true, hidden: true },
+                    { field: 'Remark', title: '说明', width: 80, sortable: true, hidden: true },
+                    {
+                        field: 'MoudleState',
+                        title: '是否启用',
+                        width: 60,
+                        align: 'center',
+                        formatter: function(value) {
+                            if (value) {
+                                return "<img src='/Content/images/icon/pass.png'/>";
+                            } else {
+                                return "<img src='/Content/images/icon/no.png'/>";
+                            }
+                        },
+                        hidden: true
+                    },
+                    { field: 'CreatePerson', title: '创建人', width: 80, sortable: true, hidden: true },
+                    { field: 'CreateTime', title: '创建时间', width: 120, sortable: true, hidden: true },
+                    {
+                        field: 'IsLast',
+                        title: '是否最后一项',
+                        align: 'center',
+                        width: 100,
+                        formatter: function(value) {
+                            if (value) {
+                                return "是";
+                            } else {
+                                return "否";
+                            }
+                        },
+                        hidden: true
+                    }
+                ]
+            ],
+            onClickRow: function(index, data) {
+                var row = $('#moudleList').treegrid('getSelected');
+                if (row != null) {
+                    curMoudleName = row.Name;
+                    curMoudleId = row.MoudleId;
+                    if (curRoleId == null && row.IsLast) {
+                        $.messageBox5s('提示', "请再选择一个角色！");
+                        return;
+                    }
+                    $('#operateList').datagrid({ url: "/ChannelPermission/GetPermissionByRoleAndMoudle?roleId=" + curRoleId + "&moudleId=" + curMoudleId + "" });
+                    $('#operateList').datagrid({ 'title': "角色组: " + curRoleName + " >> 模块：" + (row.IsLast ? curMoudleName : "[请再选择最后菜单项]") });
+                }
+
+            }
+        });
+
+        $('#operateList').datagrid({
+            url: '@Url.Action("GetPermissionByRoleAndMoudle")',
+            width: $(window).width() - 830,
+            methord: 'post',
+            height: $(window).height() - 40,
+            fitColumns: true,
+            sortName: 'CreateTime',
+            sortOrder: 'desc',
+            idField: 'RightOperateId',
+            striped: true,
+            singleSelect: true,
+            title: '授权操作',
+            rownumbers: true,
+            columns: [[
+                { field: 'RightOperateId', title: '权限操作编号', width: 80, hidden: true },
+                { field: 'Name', title: '名称', width: 80, sortable: true },
+                { field: 'KeyCode', title: '操作码', width: 80, sortable: true },
+                {
+                    field: 'IsValid', title: "<a href='#' title='@Suggestion.Select'  onclick=\"SelAll();\"  ><img src='/Content/images/icon/select.gif'></a>  <a href='#' title='@Suggestion.UnSelect'  onclick=\"UnSelAll();\"  ><img src='/Content/images/icon/unselect.gif'></a>", align: 'center', width: 30, formatter: function (value) {
+                        if (value) {
+                            return "<input type='checkbox' checked='checked' value=" + value + " />";
+                        } else {
+                            return "<input type='checkbox' value=" + value + " />";
+                        }
+                    },
+                },
+                  { field: 'RightId', title: '权限编号', width: 80, sortable: true, hidden: true }
+            ]]
+        });
+
+        $("#btnSave").click(function () {
+            var updateRows = 0;
+            var rows = $("#operateList").datagrid("getRows");   // 这段代码是获取当前页的所有行
+            for (var i = 0; i < rows.length; i++) {
+                var setFlag = $("td[field='IsValid'] input").eq(i).prop("checked");
+                if (rows[i].IsValid != setFlag)                 // 判断是否有作修改
+                {
+                    $.post("@Url.Action("UpdatePermission")", { "RightOperateId": rows[i].RightOperateId, "RightId": rows[i].RightId, "KeyCode": rows[i].KeyCode, "IsValid": setFlag }, "json");
+                    updateRows++;
+                }
+            }
+            if (updateRows > 0) {
+                $.messageBox5s('提示', '@Suggestion.SaveSuccess');
+            } else {
+                $.messageBox5s('提示', '@Suggestion.NoAnyChanges');
+            }
+
+        });
+
+        $(window).resize(function () {
+            $('#operateList').datagrid('resize', {
+                width: $(window).width() - 736,
+                height: $(window).height() - 40
+            }).datagrid('resize', {
+                width: $(window).width() - 736,
+                height: $(window).height() - 40
+            });
+            $('#moduleList,#roleList').datagrid('resize', {
+                height: $(window).height() - 40
+            }).datagrid('resize', {
+                height: $(window).height() - 40
+            });
+        });
+    });
+
+    function SelAll() {
+        $("td[field='IsValid'] input").prop("checked", true);
+        $("#btnSave").trigger("click");
+        return;
+    }
+
+    function UnSelAll() {
+        $("td[field='IsValid'] input").prop("checked", false);
+        $("#btnSave").trigger("click");
+        return;
+    }
+
+</script>

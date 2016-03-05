@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NationalUnion.Migration", "NationalUnion.Migration", "{2207F265-B45E-4DB8-ACFB-DEDA9F0687CB}"
+	ProjectSection(SolutionItems) = preProject
+		NationalUnion.Migration\migration.txt = NationalUnion.Migration\migration.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NationalUnion.Infrastructure", "NationalUnion.Infrastructure\NationalUnion.Infrastructure.csproj", "{B272FD39-6F74-44B0-8696-DF4EFD933051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NationalUnion.Common", "NationalUnion.Common\NationalUnion.Common.csproj", "{5C963B1D-9C78-4133-B8EC-62D6C0F59719}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NationalUnion.Web", "NationalUnion.Web\NationalUnion.Web.csproj", "{6F518F41-736C-401F-9CD2-0662162F3575}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NationalUnion.Repository", "NationalUnion.Repository\NationalUnion.Repository.csproj", "{7EDBC756-0D40-4C87-970F-A2380822F7DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NationalUnion.Application", "NationalUnion.Application\NationalUnion.Application.csproj", "{50555DB4-79B2-4049-80FD-2A8878B4ECFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NationalUnion.Domain", "NationalUnion.Domain\NationalUnion.Domain.csproj", "{9978D130-4BA9-42DA-82F9-F3435BBA732B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B272FD39-6F74-44B0-8696-DF4EFD933051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B272FD39-6F74-44B0-8696-DF4EFD933051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B272FD39-6F74-44B0-8696-DF4EFD933051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B272FD39-6F74-44B0-8696-DF4EFD933051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C963B1D-9C78-4133-B8EC-62D6C0F59719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C963B1D-9C78-4133-B8EC-62D6C0F59719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C963B1D-9C78-4133-B8EC-62D6C0F59719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C963B1D-9C78-4133-B8EC-62D6C0F59719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F518F41-736C-401F-9CD2-0662162F3575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F518F41-736C-401F-9CD2-0662162F3575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F518F41-736C-401F-9CD2-0662162F3575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F518F41-736C-401F-9CD2-0662162F3575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EDBC756-0D40-4C87-970F-A2380822F7DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EDBC756-0D40-4C87-970F-A2380822F7DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EDBC756-0D40-4C87-970F-A2380822F7DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EDBC756-0D40-4C87-970F-A2380822F7DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50555DB4-79B2-4049-80FD-2A8878B4ECFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50555DB4-79B2-4049-80FD-2A8878B4ECFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50555DB4-79B2-4049-80FD-2A8878B4ECFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50555DB4-79B2-4049-80FD-2A8878B4ECFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9978D130-4BA9-42DA-82F9-F3435BBA732B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9978D130-4BA9-42DA-82F9-F3435BBA732B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9978D130-4BA9-42DA-82F9-F3435BBA732B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9978D130-4BA9-42DA-82F9-F3435BBA732B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal

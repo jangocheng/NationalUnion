@@ -1,0 +1,187 @@
+﻿@using NationalUnion.Application.Commons
+@using NationalUnion.Web.HtmlHelpers
+@{
+    ViewBag.Title = "ManagerList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table id="List">
+    <div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+    <div class="mvctool">
+        <input id="txtQuery" type="text" value="输入*负责人*关键字" onfocus="if(value=='输入*负责人*关键字') {value='';}" onblur="if(value=='') {value='输入*负责人*关键字';}" style="text-align: center;" class="searchText">
+        <input id="queryParent" type="text" value="输入*归属渠道*关键字" onfocus="if(value=='输入*归属渠道*关键字') {value='';}" onblur="if(value=='') {value='输入*归属渠道*关键字';}" style="text-align: center;" class="searchText">
+        @Html.DropDownList("ChannelTypeStr", (List<SelectListItem>)ViewData["ChannelType"], new { style = "height:22px; float:left; margin: 3px 5px 0 0; width: 120px;" })
+        @Html.DropDownList("RankStr", (List<SelectListItem>)ViewData["Rank"], new { style = "height:22px; float:left; margin: 3px 5px 0 0; width: 120px;" })
+        @Html.DropDownList("IsActiveStr", (List<SelectListItem>)ViewData["Status"], new { style = "height:22px; float:left; margin: 3px 5px 0 0; width: 120px;" })
+        @Html.ToolButton("btnQuery", "icon-search", "查询", true)
+        @Html.ToolButton("btnCreate", "icon-add", "新增", true)
+        @Html.ToolButton("btnEdit", "icon-edit", "修改", true)
+        @Html.ToolButton("btnDetails", "icon-details", "详细", true)
+        @Html.ToolButton("btnDelete", "icon-remove", "删除", true)
+        @Html.ToolButton("btnStatus", "icon-man", "激活停用", true)
+        @*@Html.ToolButton("btnReset", "icon-female", "重置密码", true)*@
+        @*@Html.ToolButton("btnExport", "icon-export", "导出", false)
+        @Html.ToolButton("btnReload", "icon-reload", "刷新", true)*@
+    </div>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $('#List').datagrid({
+            url: '/ManagerAccount/GetManagerList',
+            width: $(window).width() - 10,
+            methord: 'post',
+            height: $(window).height() - 40,
+            fitColumns: true,
+            sortName: 'ManagerId',
+            sortOrder: 'desc',
+            idField: 'ManagerId',
+            pageSize: 10,
+            pageList: [10, 20, 30, 40, 50],
+            pagination: true,
+            striped: true,
+            singleSelect: true,
+            rownumbers: true,
+            columns: [
+                [
+                    { field: 'ManagerId', title: '会员编号', width: 40 },
+                    { field: 'ManagerName', title: '会员姓名', width: 40 },
+                    { field: 'ManagerEmail', title: '邮箱', width: 80 },
+                    { field: 'MobilePhone', title: '手机号', width: 40 },
+                    { field: 'ChannelTypeDesc', title: '渠道类型', width: 40, align: 'center' },
+                    { field: 'ChannelName', title: '渠道', width: 40 },
+                    { field: 'ChannelRankDesc', title: '渠道级别', width: 40, align: 'center' },
+                    { field: 'ParentChannel', title: '归属渠道', width: 40 },
+                    { field: 'City', title: '城市', width: 40, align: 'center' },
+                    { field: 'Province', title: '省份', width: 40, align: 'center' },
+                    { field: 'CreatedTime', title: '创建时间', width: 80, align: 'center' },
+                    { field: 'ModifiedTime', title: '最后修改时间', width: 80, align: 'center' },
+                    //styler: function (value, row, index) { return 'background-color:#00bfff;color:white'; }
+                    { field: 'IsActiveDesc', title: '账户状态', width: 40, align: 'center' }
+                ]
+            ]
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    // 自动DataGrid，从第一次加载与重置窗体大小时候发生的事件：分部视图
+    $(function () {
+        $(window).resize(function () {
+            $('#List').datagrid('resize', {
+                width: $(window).width() - 10,
+                height: $(window).height() - 40
+            }).datagrid('resize', {
+                width: $(window).width() - 10,
+                height: $(window).height() - 40
+            });
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    // iframe 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+
+    // iframe 返回并刷新
+    function frameReturnByReload(flag) {
+        if (flag)
+            $("#List").datagrid('load');
+        else
+            $("#List").datagrid('reload');
+    }
+
+    // 输出信息
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+
+    // 生成唯一Guid
+    function GetGuid() {
+        var s4 = function () {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+        return s4() + s4() + s4() + "-" + s4();
+    }
+
+    $(function () {
+        $("#btnCreate").click(function () {
+            $("#modalwindow").html("<iframe width='100%' height='98%' scrolling='no' frameborder='0'' src='/ManagerAccount/AddManager'></iframe>");
+            $("#modalwindow").window({ title: '添加', width: 500, height: 500, iconCls: 'icon-add' }).window('open');
+        });
+
+        $("#btnEdit").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='98%'  frameborder='0' src='/ManagerAccount/EditManager?managerId=" + row.ManagerId + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '修改', width: 500, height: 500, iconCls: 'icon-edit' }).window('open');
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PleseChooseToOperatingRecords');
+            }
+        });
+
+        $("#btnDetails").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                window.html("<iframe width='100%' height='98%' scrolling='no' frameborder='0' src='/ManagerAccount/DetailManager?managerId=" + row.ManagerId + "&Ieguid=" + GetGuid() + "'></iframe>");
+                window({ title: '详细', width: 500, height: 500, iconCls: 'icon-details' }).window('open');
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PleseChooseToOperatingRecords');
+            }
+        });
+
+        $("#btnQuery").click(function () {
+            var queryStr = $('#txtQuery').val() + "/" + $('#queryParent').val() + "/" + $('#ChannelTypeStr').val() + "/" + $('#RankStr').val() + "/" + $('#IsActiveStr').val();
+            $('#List').datagrid({ url: '/ManagerAccount/GetListByQuery?queryStr=' + encodeURI(queryStr) });
+        });
+
+        $("#btnDelete").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $.messager.confirm('提示', '@Suggestion.YouWantToDeleteTheSelectedRecords', function (r) {
+                    if (r) {
+                        $.post("/ManagerAccount/DeleteManager?managerId=" + row.ManagerId, function (data) {
+                            if (data==1) {
+                                $('#List').datagrid('load');
+                            }
+                            $.messageBox5s('提示', '@Suggestion.DeleteSucceed');
+                        }, "json");
+                    }
+                });
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PleseChooseToOperatingRecords');
+            }
+        });
+
+        $("#btnStatus").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $.messager.confirm('提示', '@Suggestion.YouWantChangeTheAccountStatus', function (r) {
+                    if (r) {
+                        $.post("/ManagerAccount/ChangeAccountStatus?managerId=" + row.ManagerId, function(data) {
+                            if (data==1) {
+                                $('#List').datagrid('load');
+                            }
+                            $.messageBox5s('提示', '@Suggestion.EditSucceed');
+                        }, "json");
+                    }
+                });
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PleseChooseToOperatingRecords');
+            }
+        });
+
+        @*$("#btnReset").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='98%'  frameborder='0' src='/ManagerAccount/ResetPassword?managerId=" + row.ManagerId + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '重置密码', width: 500, height: 300, iconCls: 'icon-female' }).window('open');
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PleseChooseToOperatingRecords');
+            }
+        });*@
+    });
+</script>

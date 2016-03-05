@@ -1,0 +1,54 @@
+﻿@charset "utf-8";
+.red {color:#CC0000 !important;}
+.mgb10 {margin-bottom:10px !important;}
+.qm_main {
+	width:1366px;
+	border: 1px solid #E9E9E9;
+	color: #000000;
+	margin-left: 50px;
+	min-height: 800px;
+	overflow: auto;
+    padding: 5px 5px 5px 5px;
+}
+.qm_div_bg {border-radius:5px; padding:12px; border:1px solid#DDD; background:#F9F8F6; margin-bottom:10px;}
+.gm_search {border-radius:5px 0 0 5px; width:500px; height:26px; border:3px solid #CC0000; padding:5px;font-size:15px;}
+.gm_submit {border-radius: 0 5px 5px 0; width:100px; height:42px; border:3px solid #CC0000; background:#CC0000; color:#FFF; font-weight:bold;font-size:16px;}
+.qm_choose a {margin-left:15px; color:#29A5C9}
+.qm_choose a.on {color:#CC0000; font-weight:bold;}
+.qm_list {border-radius:9px; overflow:hidden;}
+.gm_logo {width:80px; height:80px;}
+.qm_title {height:60px; overflow:hidden;}
+.qm_textarea {cursor:pointer; border-radius:5px; width:130px; height:52px; padding:3px; border:1px solid #DDD; color:#ddd; overflow:hidden;}
+.qm_textarea:hover {border:1px solid #29A5C9; background:#FFF;}
+.qm_textareaon {cursor:pointer; border-radius:5px; width:130px; height:52px; padding:3px; border:1px solid #29A5C9; background:#29A5C9; color:#FFF; overflow:hidden;}
+
+.qm_pmlist {width:100%; height:267px; margin:18px 0 12px 0; border-radius:9px; float:left; overflow:hidden;}
+.qm_pmlogo {width:709px; height:267px; float:left; }
+.qm_pmlogo img {width:709px; height:267px;}
+.qm_pmtext {background:#F9F8F6; padding:12px; }
+.qm_pmtitle {text-align:center; font-size:12px; font-weight:bold; color:#666; line-height:36px; overflow:hidden;}
+.qm_pmsize {line-height:180%; overflow:hidden;}
+.qm_pmsize a {border-radius:5px; background:#F9F8F6; padding:3px; color:#29A5C9; margin-right:6px;}
+.qm_pmsize a:hover, .qm_pmsize a.on  {border-radius:5px; background:#29A5C9; padding:3px; color:#FFF; margin-right:6px;}
+.qm_pmurl {margin-top:8px;}
+.qm_pmurl textarea {cursor:pointer; border-radius:5px; width:97%; height:88px; padding:3px; border:1px solid #DDD; color:#ddd; overflow:hidden;}
+.qm_view {text-align:center;line-height:50px;}
+.qm_view a {border-radius:5px; background:#DEDEDE; border:1px solid #CCC; padding:5px 6px; color:#666;}
+.qm_view a:hover {background:#666; border:1px solid #666; color:#FFF;}
+
+/*table样式*/
+.aw100 {width:100%;display:inline-block;}
+.table {text-align:center;border-collapse:collapse;border-radius:0 0 5px 5px;}
+.table img {border-radius:8px;}
+.table td {padding:5px 8px;line-height:180%;color:#525252;background:#F9F8F6;border:1px solid #FFF;}
+.table td a {color:#29A5C9;}
+.table .tbtitle td,.table .tbtitle {color:#000;background:#DDD;}
+.table .on td {background:#EEE;}
+
+/*分页*/
+.qmpage {clear:both;margin:10px 0;text-align:center;overflow:auto}
+.qmpage a {padding:4px 10px;line-height:50px;font-size:16px;font-family:Arial;color:#999;border-radius:5px;border:1px solid #CCC;margin:0 3px;background:#efefef}
+.qmpage a:hover, .qmpage a.on {background:#29A5C9;color:#FFF;border:1px solid #29A5C9;}
+
+/* 添加表标题样式*/
+.tbtitle a.on {color:#CC0000; font-weight:bold;}

@@ -1,0 +1,315 @@
+﻿@using System.Configuration
+@using NationalUnion.Application.Commons
+@using Microsoft.Ajax.Utilities
+@{
+    ViewBag.Title = "全民联盟后台管理系统";
+    Layout = null;
+
+    var loginSrc = ConfigurationManager.AppSettings["LoginIframe"];
+    var loginOutSrc = ConfigurationManager.AppSettings["LoginOutIframe"];
+}
+
+<script src="/Scripts/jquery.min.js" type="text/javascript"></script>
+@Styles.Render("~/Content/themes/bootstrap/css")
+<link href="~/Content/Site.css" rel="stylesheet" />
+<style type="text/css">
+    .loginIframe {
+        position: relative;
+        width: 294px;
+        height: 311px;
+        margin-top: 20px;
+        margin-right: 200px;
+        border: 1px #ccc;
+        float: right;
+    }
+
+    /*#LoginTb {
+            font-size: 14px;
+        }
+
+        #LoginTb {
+            font-size: 12px;
+        }
+
+            #LoginTb input {
+                width: 190px;
+                height: 24px;
+                line-height: 24px;
+            }*/
+
+    .login-wrap {
+        position: absolute;
+        z-index: 100;
+        top: 82px;
+        right: 30px;
+        width: 230px;
+        padding: 14px 20px 14px;
+        background: #FFF;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+        border: 1px solid #888;
+    }
+
+    .login-wrap-if {
+        position: absolute;
+        z-index: 100;
+        top: 80px;
+        right: 0px;
+        width: 294px;
+        height: 311px;
+        background: #FFF;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+        border: 1px solid #cccccc;
+    }
+
+    .login-tit, .btn {
+        font-family: "Microsoft Yahei";
+    }
+
+    .login-tit {
+        font: 20px arial;
+        margin-bottom: 13px;
+    }
+
+    .login-tit2 {
+        margin-bottom: 8px;
+    }
+
+    .s-box {
+        font: 13px arial;
+        width: 215px;
+        padding: 3px 9px;
+        border: 1px solid #cccccc;
+        text-align: center;
+        line-height: 22px;
+        margin-bottom: 6px;
+    }
+
+    .btn {
+        width: 215px;
+        display: inline-block;
+        color: #FFF;
+        background: url("/Content/images/btn_bg.png") repeat-x;
+        text-align: center;
+        line-height: 1;
+        border-radius: 3px;
+        vertical-align: middle;
+    }
+
+    .btn-r {
+        padding: 8px 10px;
+        font-size: 16px;
+        padding: 6px 10px 10px;
+    }
+
+    .btn-sp1 {
+        padding: 8px 10px;
+        padding: 6px 10px 10px;
+    }
+</style>
+
+<div data-options="region:'north',border:false,split:true" style="height: 65px; width: 100%;">
+    <div class="define-head">
+        <div class="define-logo">
+        </div>
+        @*<div class="define-advice">
+            <span>……使用最新版Chrome和Firefox浏览器会给您带来更好的用户体验……</span>
+        </div>*@
+    </div>
+</div>
+@*<div style="margin: 0 auto; margin-top: 100px; width: 800px;">
+    <table style="width: 800px; margin: 0 auto;">
+        <tr>
+            <td style="width: 300px; height: 500px;">
+                <table id="LoginTb" style="margin-top: 10px; background: #fff; width: 100%; height: 230px; border: 1px #ccc solid;">
+                    <tr>
+                        <td colspan="2" style="font-size: 18px; font-weight: bold; padding: 5px 20px;">欢迎登录</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right">用&nbsp;&nbsp;户：</td>
+                        <td>
+                            <input id="User" name="User" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">密&nbsp;&nbsp;码：</td>
+                        <td>
+                            <input id="Password" name="Password" type="password" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right">验证码：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 40px;">&nbsp;</td>
+                                    <td>
+                                        <div id="mes" class="field-validation-error"></div>
+                                        <div id="Loading" style="display: none" class='panel-loading'><font color='#000'>加载中...</font></div>
+                                    </td>
+                                    <td style="width: 100px;">
+                                        <a id="LoginSys" href="javascript:void(0)" class="easyui-linkbutton l-btn">
+                                            <span class="l-btn-left">
+                                                <span class="l-btn-text icon-ok" style="padding-left: 20px;">登录</span>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>*@
+@{
+    if (Request.Cookies["memberNo"] == null)
+    {
+    <div style="margin-top: 100px;">
+        <iframe class="loginIframe login-wrap-if" scrolling ="no" frameborder="0" src="@loginSrc"></iframe>
+    </div>
+    }
+    else
+    {
+        if (Request.Cookies["loginName"] != null)
+        {
+            string memberNo = Request.Cookies["memberNo"].Value;
+            string loginName = Request.Cookies["loginName"].Value;
+            memberNo = HttpUtility.UrlDecode(memberNo);
+            loginName = HttpUtility.UrlDecode(loginName);
+       
+    <div class="loginIframe">
+        <div class="login-wrap">
+            <p class="login-tit login-tit2">全民联盟会员</p>
+            <div class="s-box">
+                您正使用的国美全民联盟账户：<br />
+                <font color="red">@loginName</font>
+                <input id="loginName" type="hidden" value="@loginName" />
+                <input id="memberNo" type="hidden" value="@memberNo" />
+                <a href="@loginOutSrc">[退出]</a>
+            </div>
+            <br />
+            <div id="LoginSys" style="display: none;"><a href="javascript:void(0)" class="btn btn-r btn-sp1">进入我的全民联盟</a></div>
+            <div id="LoginApply" style="display: none;"><a href="javascript:void(0)" class="btn btn-r btn-sp1">全民联盟申请入口</a></div>
+            <br />
+            <div id="mes" class="field-validation-error"></div>
+        </div>
+    </div>  
+    <div id="modalwindow"></div>
+    <div id="parentwindow" style="position: absolute; z-index: 10; background-color: #cccccc;"></div>   
+        }
+        else
+        {
+    <div style="margin-top: 100px;">
+        <iframe class="loginIframe login-wrap-if" scrolling ="no" frameborder="0" src="@loginSrc"></iframe>
+    </div>
+        }
+    }
+}
+<div style="background: #f1f1f1; height: 40px; width: 100%; text-align: center; font: 13px arial; line-height: 40px; border-top: 1px #ccc solid; bottom: 0; position: absolute">
+    ©2014 Jiangew
+</div>
+
+<script type="text/javascript">
+    // iframe 返回
+    function frameReturnByClose() {
+        $("#modalwindow").remove();
+        $("#parentwindow").remove();
+        window.location = "/Home/AccountLogin";
+    }
+
+    $(function () {
+        $.post('/Home/MemberNoExists', { memberNo: parseInt($("#memberNo").val()) },
+            function (msg) {
+                if (msg.Res) {
+                    $("#LoginSys").css('display', 'block');
+                } else {
+                    $("#LoginApply").css('display', 'block');
+                }
+            });
+    });
+
+    $(function () {
+        $("#LoginSys").click(function () {
+            $.post('/Home/AccountLogin', { memberNo: parseInt($("#memberNo").val()) },
+                function (msg) {
+                    if (msg.Res) {
+                        window.location = "/Home/Index";
+                    } else {
+                        $("#mes").html(msg.Msg);
+                    }
+                }, "json");
+        });
+
+        $("#LoginApply").click(function () {
+            $.post('/Home/AccountLogin', { memberNo: parseInt($("#memberNo").val()) },
+                function (msg) {
+                    if (!msg.Res && msg.Msg == '@Suggestion.LoginToProfile') {
+                        $("#modalwindow").html("<iframe width='100%' height='98%' frameborder='0' src='/Home/AccountPerfect'></iframe>");
+                        $("#modalwindow").css({
+                            'position': 'absolute',
+                            'overflow': 'hidden',
+                            'z-index': '20',
+                            'top': '20%',
+                            'left': '35%',
+                            'width': '500px',
+                            'height': '450px',
+                            'border': '1px #ccc solid'
+                        });
+                        $("#modalwindow").window({ title: '完善个人信息', width: 500, height: 450, iconCls: 'icon-edit' }).window('open');
+                        //window.location = "/Home/PerfectInfo";
+                    } else {
+                        $("#mes").html(msg.Msg);
+                    }
+                }, "json");
+
+            var width = $("body").width();
+            var height = $("body").height() - 100;
+            $("#parentwindow").css({ "width": width, "height": height, "opacity": 0.5 });
+        });
+        //$("#User").keydown(function (e) {
+        //    var curkey = e.which;
+        //    if (curkey == 13) {
+        //        LoginSys();
+        //        return false;
+        //    }
+        //});
+        //$("#Password").keydown(function (e) {
+        //    var curkey = e.which;
+        //    if (curkey == 13) {
+        //        LoginSys();
+        //        return false;
+        //    }
+        //});
+    });
+
+    //function LoginSys() {
+    //    $("#mes").html("");
+    //    $("#User").removeClass("input-validation-error");
+    //    $("#Password").removeClass("input-validation-error");
+    //    if ($.trim($("#User").val()) == "") {
+    //        $("#User").addClass("input-validation-error").focus();
+    //        $("#mes").html("用户名不能为空！");
+    //        return false;
+    //    }
+    //    if ($.trim($("#Password").val()) == "") {
+    //        $("#Password").addClass("input-validation-error").focus();
+    //        $("#mes").html("密码不能为空！");
+    //        return false;
+    //    }
+    //    $("#Loading").show();
+
+    //    $.post('/Home/AccountLogin', { user: $("#User").val(), password: $("#Password").val() },
+    //        function (msg) {
+    //            if (msg.Res) {
+    //                window.location = "/Home/Index";
+    //            } else {
+    //                $("#mes").html(msg.Msg);
+    //            }
+    //            $("#Loading").hide();
+    //        }, "json");
+
+    //        return false;
+    //    }
+</script>

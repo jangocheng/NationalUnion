@@ -1,0 +1,212 @@
+﻿@using NationalUnion.Application.Commons
+@using NationalUnion.Web.HtmlHelpers
+@model NationalUnion.Application.ViewModels.ManagerAccount
+@{
+    ViewBag.Title = "AccountInfo";
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+}
+
+<table>
+    <div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+    <div class="mvctool">
+        @Html.ToolButton("btnEdit", "icon-edit", "修改资料", true)
+        @*@Html.ToolButton("btnReset", "icon-female", "修改密码", true)*@
+    </div>
+</table>
+<table class="fromEditTable setTextWidth300" style="border: 1px #eeeeee solid">
+    <tr>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.ManagerId)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.ManagerId, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.ManagerName)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.ManagerName, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.ChannelName)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.ChannelName, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.ChannelRankDesc)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.ChannelRankDesc, new { style = "width: 160px;", @readonly = true })
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.IsActiveDesc)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.IsActiveDesc, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.ManagerEmail)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.ManagerEmail, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.MobilePhone)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.MobilePhone, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.IdCardNo)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.IdCardNo, new { style = "width: 160px;", @readonly = true })
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.City)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.City, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.Province)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.Province, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.CreatedTime)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.CreatedTime, new { style = "width: 160px;", @readonly = true })
+        </td>
+        <td style="width: 100px; text-align: right;">
+            @Html.LabelFor(model => model.ModifiedTime)：
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.ModifiedTime, new { style = "width: 160px;", @readonly = true })
+        </td>
+    </tr>
+</table>
+<table id="DayList" class="Mar_Top_20"></table>
+<table id="WeekList"></table>
+<table id="MonthList"></table>
+
+<script type="text/javascript">
+    $(function () {
+        $('#DayList').datagrid({
+            url: '/Home/GetStatisticsByDay',
+            width: $(window).width() - 10,
+            methord: 'post',
+            height: 100,
+            fitColumns: true,
+            sortName: 'UV',
+            sortOrder: 'desc',
+            idField: 'UV',
+            pagination: false,
+            striped: true,
+            singleSelect: true,
+            rownumbers: false,
+            title: '近一天业绩概况：',
+            columns: [
+                [
+                    { field: 'PV', title: 'PV', width: 40, align: 'center' },
+                    { field: 'UV', title: 'UV', width: 40, align: 'center' },
+                    { field: 'OrderQunantity', title: '订单量', width: 40, align: 'center' },
+                    { field: 'OrderAmount', title: '订单金额', width: 40, align: 'center' },
+                    { field: 'EstimateCommission', title: '预计佣金', width: 40, align: 'center' },
+                    { field: 'AvaliableCommission', title: '可用佣金', width: 40, align: 'center' }
+                ]
+            ]
+        });
+
+        $('#WeekList').datagrid({
+            url: '/Home/GetStatisticsByWeek',
+            width: $(window).width() - 10,
+            methord: 'post',
+            height: 100,
+            fitColumns: true,
+            sortName: 'UV',
+            sortOrder: 'desc',
+            idField: 'UV',
+            pagination: false,
+            striped: true,
+            singleSelect: true,
+            rownumbers: false,
+            title: '近一周业绩概况：',
+            columns: [
+                [
+                    { field: 'PV', title: 'PV', width: 40, align: 'center' },
+                    { field: 'UV', title: 'UV', width: 40, align: 'center' },
+                    { field: 'OrderQunantity', title: '订单量', width: 40, align: 'center' },
+                    { field: 'OrderAmount', title: '订单金额', width: 40, align: 'center' },
+                    { field: 'EstimateCommission', title: '预计佣金', width: 40, align: 'center' },
+                    { field: 'AvaliableCommission', title: '可用佣金', width: 40, align: 'center' }
+                ]
+            ]
+        });
+
+        $('#MonthList').datagrid({
+            url: '/Home/GetStatisticsByMonth',
+            width: $(window).width() - 10,
+            methord: 'post',
+            height: 100,
+            fitColumns: true,
+            sortName: 'UV',
+            sortOrder: 'desc',
+            idField: 'UV',
+            pagination: false,
+            striped: true,
+            singleSelect: true,
+            rownumbers: false,
+            title: '近一月业绩概况：',
+            columns: [
+                [
+                    { field: 'PV', title: 'PV', width: 40, align: 'center' },
+                    { field: 'UV', title: 'UV', width: 40, align: 'center' },
+                    { field: 'OrderQunantity', title: '订单量', width: 40, align: 'center' },
+                    { field: 'OrderAmount', title: '订单金额', width: 40, align: 'center' },
+                    { field: 'EstimateCommission', title: '预计佣金', width: 40, align: 'center' },
+                    { field: 'AvaliableCommission', title: '可用佣金', width: 40, align: 'center' }
+                ]
+            ]
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    // iframe 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+
+    // 输出信息
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+
+    // 生成唯一Guid
+    function GetGuid() {
+        var s4 = function () {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+        return s4() + s4() + s4() + "-" + s4();
+    }
+
+    $("#btnEdit").click(function () {
+        // &Ieguid=" + GetGuid() + "
+        $("#modalwindow").html("<iframe width='99%' height='98%'  frameborder='0' src='/Home/AccountEdit?managerId=" + @Model.ManagerId + "&Ieguid=" + GetGuid() + "'></iframe>");
+        $("#modalwindow").window({ title: '修改资料', width: 500, height: 450, iconCls: 'icon-edit' }).window('open');
+    });
+
+    @*$("#btnReset").click(function() {
+        // &Ieguid=" + GetGuid() + "
+        $("#modalwindow").html("<iframe width='99%' height='98%'  frameborder='0' src='/Home/AccountPwd?managerId=" + @Model.ManagerId + "&Ieguid=" + GetGuid() + "'></iframe>");
+        $("#modalwindow").window({ title: '修改密码', width: 500, height: 300, iconCls: 'icon-female' }).window('open');
+    });*@
+</script>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{50555DB4-79B2-4049-80FD-2A8878B4ECFB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NationalUnion.Application</RootNamespace>
+    <AssemblyName>NationalUnion.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commons\ChannelRank.cs" />
+    <Compile Include="Commons\ChannelRankChangeStatus.cs" />
+    <Compile Include="Commons\ChannelType.cs" />
+    <Compile Include="Commons\ManagerRole.cs" />
+    <Compile Include="Commons\EnumHelper.cs" />
+    <Compile Include="Commons\GridPager.cs" />
+    <Compile Include="Commons\JsonMessage.cs" />
+    <Compile Include="Commons\LinqHelper.cs" />
+    <Compile Include="Commons\ChannelShare.cs" />
+    <Compile Include="Commons\Status.cs" />
+    <Compile Include="Commons\Suggestion.cs" />
+    <Compile Include="Commons\ValidationError.cs" />
+    <Compile Include="Commons\ValueConvert.cs" />
+    <Compile Include="Implements\ChannelManageBll.cs" />
+    <Compile Include="Implements\ChannelMenuBll.cs" />
+    <Compile Include="Implements\ChannelMoudleBll.cs" />
+    <Compile Include="Implements\ChannelMoudleOperateBll.cs" />
+    <Compile Include="Implements\ChannelPermissionBll.cs" />
+    <Compile Include="Implements\ChannelRoleBll.cs" />
+    <Compile Include="Implements\ManagerAccountBll.cs" />
+    <Compile Include="Implements\ManagerDetailBll.cs" />
+    <Compile Include="Implements\ShareChannelBll.cs" />
+    <Compile Include="Implements\ShareDetailBll.cs" />
+    <Compile Include="Implements\ShareStatisticsBll.cs" />
+    <Compile Include="Interfaces\IChannelManageBll.cs" />
+    <Compile Include="Interfaces\IChannelMenuBll.cs" />
+    <Compile Include="Interfaces\IChannelMoudleBll.cs" />
+    <Compile Include="Interfaces\IChannelMoudleOperateBll.cs" />
+    <Compile Include="Interfaces\IChannelRoleBll.cs" />
+    <Compile Include="Interfaces\IManagerAccountBll.cs" />
+    <Compile Include="Interfaces\IManagerDetailBll.cs" />
+    <Compile Include="Interfaces\IChannelPermissionBll.cs" />
+    <Compile Include="Interfaces\IShareChannelBll.cs" />
+    <Compile Include="Interfaces\IShareDetailBll.cs" />
+    <Compile Include="Interfaces\IShareStatisticsBll.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnityDependencyRegister.cs" />
+    <Compile Include="ViewModels\BankCardInfo.cs" />
+    <Compile Include="ViewModels\ChannelInfo.cs" />
+    <Compile Include="ViewModels\OrderProductOccurInfo.cs" />
+    <Compile Include="ViewModels\ShareStatisticsInfo.cs" />
+    <Compile Include="ViewModels\ManagerAccount.cs" />
+    <Compile Include="ViewModels\ManagerDetailInfo.cs" />
+    <Compile Include="ViewModels\ManagerInfo.cs" />
+    <Compile Include="ViewModels\MoudleInfo.cs" />
+    <Compile Include="ViewModels\MoudleNavigationInfo.cs" />
+    <Compile Include="ViewModels\MoudleOperateInfo.cs" />
+    <Compile Include="ViewModels\PermissionInfo.cs" />
+    <Compile Include="ViewModels\RoleInfo.cs" />
+    <Compile Include="ViewModels\ShareChannelInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NationalUnion.Common\NationalUnion.Common.csproj">
+      <Project>{5c963b1d-9c78-4133-b8ec-62d6c0f59719}</Project>
+      <Name>NationalUnion.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NationalUnion.Domain\NationalUnion.Domain.csproj">
+      <Project>{9978d130-4ba9-42da-82f9-f3435bba732b}</Project>
+      <Name>NationalUnion.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NationalUnion.Infrastructure\NationalUnion.Infrastructure.csproj">
+      <Project>{B272FD39-6F74-44B0-8696-DF4EFD933051}</Project>
+      <Name>NationalUnion.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NationalUnion.Repository\NationalUnion.Repository.csproj">
+      <Project>{7edbc756-0d40-4c87-970f-a2380822f7df}</Project>
+      <Name>NationalUnion.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

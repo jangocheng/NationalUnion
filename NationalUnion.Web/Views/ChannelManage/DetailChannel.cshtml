@@ -1,0 +1,105 @@
+﻿@model NationalUnion.Application.ViewModels.ChannelInfo
+@{
+    ViewBag.Title = "DetailChannel";
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+}
+
+@using (Html.BeginForm("DetailChannel", "ChannelManage", null, FormMethod.Post, new { Id = "DetailChannelForm" }))
+{
+    @Html.ValidationSummary(true);
+    <table class="fromEditTable setTextWidth300">
+        <tbody>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ChannelId)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ChannelId, new { style = "width: 200px;", @readonly = true })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ChannelId)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ChannelName)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ChannelName, new { style = "width: 200px;", @readonly = true })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ChannelName)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ChannelTypeStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("ChannelTypeStr", (List<SelectListItem>)ViewData["ChannelType"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.RankStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("RankStr", (List<SelectListItem>)ViewData["Rank"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ParentChannel)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ParentChannel, new { style = "width: 200px;", @readonly = true })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ParentChannel)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.KeyWord)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.KeyWord, new { style = "width: 200px;", @readonly = true })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.KeyWord)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.CreatedTime)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.CreatedTime, new { style = "width: 200px;", @readonly = true })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.CreatedTime)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ModifiedTime)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ModifiedTime, new { style = "width: 200px;", @readonly = true })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ModifiedTime)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.IsActiveStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("IsActiveStr", (List<SelectListItem>)ViewData["Status"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+

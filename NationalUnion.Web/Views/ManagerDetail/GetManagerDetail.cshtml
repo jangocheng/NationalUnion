@@ -1,0 +1,86 @@
+﻿@model NationalUnion.Application.ViewModels.ManagerDetailInfo
+@{
+    ViewBag.Title = "GetManagerDetail";
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+}
+
+@using (Html.BeginForm("GetManagerDetail", "ManagerDetail", null, FormMethod.Post, new { Id = "GetManagerDetailForm" }))
+{
+    @Html.ValidationSummary(true);
+    <table class="fromEditTable setTextWidth300">
+        <tbody>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ManagerDetailId)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ManagerDetailId, new { style = "width: 200px;", @readonly = true })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ManagerId)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ManagerId, new { style = "width: 200px;", @readonly = true })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ManagerName)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ManagerName, new { style = "width: 200px;", @readonly = true })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.CurrentChannel)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.CurrentChannel, new { style = "width: 200px;", @readonly = true })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.OldChannel)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.OldChannel, new { style = "width: 200px;", @readonly = true })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.CurrentRankStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("CurrentRankStr", (List<SelectListItem>)ViewData["CurrentRank"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.OldRankStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("OldRankStr", (List<SelectListItem>)ViewData["OldRank"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.RankStatusStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("RankStatusStr", (List<SelectListItem>)ViewData["RankStatus"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.CreatedTime)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.CreatedTime, new { style = "width: 200px;", @readonly = true })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

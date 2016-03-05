@@ -1,0 +1,210 @@
+﻿@model NationalUnion.Application.ViewModels.ManagerAccount
+@{
+    ViewBag.Title = "EditManager";
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+<div class="mvctool bgb">
+    <a id="btnSave" style="float: left;" class="l-btn l-btn-plain">
+        <span class="l-btn-left"><span class="l-btn-text icon-save" style="padding-left: 20px;">保存</span></span>
+    </a>
+</div>
+@using (Html.BeginForm("EditManager", "ManagerAccount", null, FormMethod.Post, new { Id = "EditManagerForm" }))
+{
+    @Html.ValidationSummary(true);
+    <table class="fromEditTable setTextWidth300">
+        <tbody>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ManagerId)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ManagerId, new { style = "width: 200px;", @readonly = true })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ManagerId)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ManagerName)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ManagerName, new { style = "width: 200px;" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ManagerName)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ManagerEmail)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ManagerEmail, new { style = "width: 200px;" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ManagerEmail)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.MobilePhone)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.MobilePhone, new { style = "width: 200px;" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.MobilePhone)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.IdCardNo)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.IdCardNo, new { style = "width: 200px;" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.IdCardNo)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ChannelTypeStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("ChannelTypeStr", (List<SelectListItem>)ViewData["ChannelType"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ChannelName)：
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ChannelName, new { style = "width: 200px;" })
+                    @Html.Hidden("ChannelId")
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ChannelName)
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.ProvinceId)：
+                </td>
+                <td>
+                    @Html.DropDownList("ProvinceId", (List<SelectListItem>)ViewData["ProvList"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.CityId)：
+                </td>
+                <td>
+                    @Html.DropDownList("CityId", (List<SelectListItem>)ViewData["CityList"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; text-align: right;">
+                    @Html.LabelFor(model => model.IsActiveStr)：
+                </td>
+                <td>
+                    @Html.DropDownList("IsActiveStr", (List<SelectListItem>)ViewData["Status"], new { style = "width:208px; height:22px;" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+<script type="text/javascript">
+    // 页面加载时初始化下拉框
+    //debugger;
+    $("#ChannelTypeStr option[value='@Model.ChannelTypeStr']").attr("selected", true);
+    $("#IsActiveStr option[value='@Model.IsActiveStr']").attr("selected", true);
+    // 下拉框默认选中
+    $("#ProvinceId option[value='@Model.ProvinceId']").attr("selected", true);
+    $("#CityId option[value='@Model.CityId']").attr("selected", true);
+
+    $(function () {
+        $("#ProvinceId").change(function () {
+            changeCity();
+        });
+    });
+
+    // 根据省份加载城市
+    function changeCity() {
+        var selectedProvinceId = $("#ProvinceId").val();
+        if (selectedProvinceId.length == 0) {
+            emptyCity();
+        } else {
+            $.post('@Url.Action("GetCityList", "ManagerAccount")', { pid: parseInt(selectedProvinceId) }, function (data) {
+                $('#CityId').empty();
+                $.each(data, function (i, item) {
+                    $('#CityId').append($('<option></option>').val(item.Value).text(item.Text));
+                });
+            });
+        }
+    }
+
+    // 设置城市清空
+    function emptyCity() {
+        $('#CityId').empty();
+        $('#CityId').append($('<option></option>').val('').text('请选择'));
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ChannelName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "@Url.Action("Search","ManagerAccount")",
+                    type: "POST",
+                    dataType: "json",   // json格式数据，默认是text
+                    //data: { keyword: request.term },  // 参数
+                    data: { channelType: $("#ChannelTypeStr").val(), keyword: $("#ChannelName").val() }, // 参数
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.text, value: item.value }; // 将返回的jsonresult的属性赋值给autocomplete item
+                        }));
+                    }
+                });
+            },
+            focus: function (event, ui) {
+                $("#ChannelName").val(ui.item.label);   // 选中item的文本
+                return false;
+            },
+            select: function (event, ui) {
+                $("#ChannelName").val(ui.item.label);   // 选中item的文本
+                $('#ChannelId').val(parseInt(ui.item.value));    // 选中item的值
+                return false;
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSave").click(function () {
+            $.ajax({
+                url: "/ManagerAccount/EditManager",
+                type: "POST",
+                data: $("#EditManagerForm").serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data == 1) {
+                        window.parent.frameReturnByMes("成功");
+                        window.parent.frameReturnByReload(true);
+                        window.parent.frameReturnByClose();
+                    } else {
+                        window.parent.frameReturnByMes("失败");
+                    }
+                }
+            });
+        });
+    });
+</script>

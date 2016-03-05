@@ -1,0 +1,8 @@
+// 启用数据迁移
+enable-migrations -ProjectName NationalUnion.Repository -StartUpProjectName NationalUnion.Web -Verbose
+
+// 迁移
+add-migration InitialCreate -ProjectName NationalUnion.Repository -StartUpProjectName NationalUnion.Web -Verbose
+
+// 更新数据库
+update-database -ProjectName NationalUnion.Repository -StartUpProjectName NationalUnion.Web -Verbose
